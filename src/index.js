@@ -1,9 +1,9 @@
 'use strict';
 import express from 'express';
 const Router = express.Router();
-import {adminRoute} from '../router.js'
+import {AdminRoute} from '../router.js'
 
-Router.use('/admin', adminRoute);
+Router.use('/admin', AdminRoute);
 
 Router.get('/', (req, res) => {
     res.send('api works');
