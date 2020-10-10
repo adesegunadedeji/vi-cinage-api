@@ -2,8 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import session  from 'express-session'
-import mongoose from 'mongoose'
+import session  from 'express-session';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
 import {Router as api} from './src/index.js'
 
 const app = express();
@@ -17,6 +18,7 @@ const corsOptions={
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(cors(corsOptions))
+app.use(morgan('combined'));
 
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
