@@ -5,13 +5,17 @@ import bodyParser from 'body-parser';
 import session  from 'express-session';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import helmet from 'helmet';
+
+import rfs from 'rotating-file-stream';
+import path from 'path';
 import {Router as api} from './src/index.js'
 dotenv.config();
 
 const app = express();
-
-// app.use(cors());
+app.use(cors());
 app.use(morgan('combined'));
+app.use(helmet());
 const SECRET = process.env.SECRET;
 //MiddleWare for User Login
 app.use(session({
@@ -19,21 +23,35 @@ app.use(session({
   resave:false,
   saveUninitialized:false,
 }))
+//MiddleWare
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true })); //can change to false
+app.use(bodyParser.json());
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
   next();
 });
+
+// create a rotating write stream for logging requests daily
+const __dirname = path.resolve();
+const serverLogStream = rfs.createStream('server.log', {
+    interval: '1d',
+    path: path.join(__dirname, 'logs')
+})
+app.use(morgan("combined", { stream: serverLogStream }));
 const PORT = process.env.PORT;
 //CORS allows request to come in from React
-const corsOptions={
-    credentials:true,
-    origin:'http://localhost:3000',// Include Allowable Origin
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app.use(cors(corsOptions));
+// const corsOptions={
+//     credentials:true,
+//     origin:'http://localhost:3000',// Include Allowable Origin
+//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+// app.use(cors(corsOptions));
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
@@ -44,13 +62,7 @@ mongoose.connect(process.env.MONGO_URI, {
     .then(() => console.log("database connected"))
     .catch(err => console.log("could not connect database", err));
 
-//MiddleWare
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true })); //can change to false
-app.use(bodyParser.json());
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 
 app.use((req,res,next)=>{
     console.log('this is who is logged in ', req.session.userId)
