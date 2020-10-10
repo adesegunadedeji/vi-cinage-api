@@ -1,5 +1,5 @@
 import express from 'express';
-const router = express.Router();
+const Router = express.Router();
 
 import {userRegistration, loginRegistration, logOut} from './src/controllers/userController.js'
 import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from './src/controllers/estateController.js';
@@ -9,41 +9,39 @@ import {fetchHomes, addHome,updateHomes,deleteHomes,fetchSingleHome} from './src
 /* 
 User Authentication.
  */
-router.post('/users/register',userRegistration );
-router.post('/users/login',loginRegistration );
-router.get('/users/logout',logOut );
-
-
+Router.post('/users/register',userRegistration );
+Router.post('/users/login',loginRegistration );
+Router.get('/users/logout',logOut );
 /* 
 Real Estate Agencies.
  */
-router.get('/estates/:id',fetchSingleEstate);
-router.get('/estates/:id',updateSingleEstate);
-router.delete('/estates/:id',deleteSingleEstate);
-router.post('/estates/new', addEstateAgency);
-router.get('/estates', fetchAllAgencies);
+Router.get('/estates/:id',fetchSingleEstate);
+Router.get('/estates/:id',updateSingleEstate);
+Router.delete('/estates/:id',deleteSingleEstate);
+Router.post('/estates/new', addEstateAgency);
+Router.get('/estates', fetchAllAgencies);
 
 
 /* 
 Listings Category.
- */
-router.post('/listings/new', addListing);
-router.get('/listings/:id',fetchSingleListing);
-router.get('/listings', fetchAllListings);
-router.get('/listings/:id',updateListing);
-router.delete('/listings/:id', deleteSingleListing);
-
+*/
+Router.post('/listings/new', addListing);
+Router.get('/listings/:id',fetchSingleListing);
+Router.get('/listings', fetchAllListings);
+Router.get('/listings/:id',updateListing);
+Router.delete('/listings/:id', deleteSingleListing);
 /* 
 Homes.
  */
-router.get('/homes', fetchHomes);
-router.post('/homes/new', addHome);
-router.put('/homes/:id', updateHomes);
-router.delete('/homes/:id', deleteHomes);
-router.get('/homes/:id', fetchSingleHome);
+Router.get('/homes', fetchHomes);
+Router.post('/homes/new', addHome);
+Router.put('/homes/:id', updateHomes);
+Router.delete('/homes/:id', deleteHomes);
+Router.get('/homes/:id', fetchSingleHome);
+
 //default 200 OK
-router.get("health", (req, res) => {
+Router.get("health", (req, res) => {
     res.send("OK");
 });
 
-export {router as adminRoute};
+export {Router as adminRoute};
