@@ -55,7 +55,7 @@ app.use((req,res,next)=>{
 
 //server works --200 status
 app.get('/', (req, res) => {
-  res.status(200).send('<p style="text-align: center; font-weight: 600">Welcome to VICINAGE API YUP...</p>');
+  res.status(200).send('<p style="text-align: center; font-weight: 600">Welcome to VICINAGE API...</p>');
 })
 //API Routes
 app.use('/api/v1/', api);
