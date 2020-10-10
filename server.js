@@ -8,32 +8,31 @@ import morgan from 'morgan';
 import {Router as api} from './src/index.js'
 
 const app = express();
-dotenv.config();
-
-const PORT = process.env.PORT;
-//CORS allows request to come in from React
-const corsOptions={
-    credentials:true,
-    origin:'http://localhost:3000',// Include Allowable Origin
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app.use(cors(corsOptions))
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(cors());
 app.use(morgan('combined'));
-
-app.all('*', function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  next();
-});
-
-
 //MiddleWare for User Login
 app.use(session({
   secret: process.env.SECRET,
   resave:false,
   saveUninitialized:false,
 }))
+dotenv.config();
 
+app.all('*', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
+});
+const PORT = process.env.PORT;
+// //CORS allows request to come in from React
+// const corsOptions={
+//     credentials:true,
+//     origin:'http://localhost:3000',// Include Allowable Origin
+//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+//app.use(cors(corsOptions));
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
@@ -47,7 +46,6 @@ mongoose.connect(process.env.MONGO_URI, {
 //MiddleWare
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })); //can change to false
-// parse application/json
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
@@ -60,7 +58,7 @@ app.get('/', (req, res) => {
   res.status(200).send('<p style="text-align: center; font-weight: 600">Welcome to VICINAGE API...</p>');
 })
 //API Routes
-app.use('/api/v1/', api);
+app.use('/api/v1', api);
 
 app.on('error', (err) => {
   console.error(`Express server error ${err}`);
@@ -69,5 +67,3 @@ app.on('error', (err) => {
 app.listen(PORT, ()=>{
     console.log(`listening on  PORT ${PORT}`);
 })
-
-
