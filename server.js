@@ -83,3 +83,4 @@ app.on('error', (err) => {
 app.listen(PORT, ()=>{
     console.log(`listening on  PORT ${PORT}`);
 })
+export { app as server };
