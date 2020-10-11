@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 // import rfs from 'rotating-file-stream';
 // import path from 'path';
-import { Router as indexRoute} from './src/index.js'
+import { Router as api} from './src/api/index.js'
 dotenv.config();
 
 const app = express();
@@ -54,8 +54,8 @@ mongoose.connect(process.env.MONGO_URI, {
 app.get('/', (req, res) => {
   res.status(200).send('<p style="text-align: center; font-weight: 600">Welcome to VICINAGE API...</p>');
 })
-//API Routes
-app.use('/api/v1', indexRoute);
+app.use("/api", api);
+
 app.on('error', (err) => {
   console.error(`Express server error ${err}`);
 });

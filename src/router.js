@@ -50,4 +50,4 @@ Router.get("health", (req, res) => {
     res.send("OK");
 });
 
-export {Router as AdminRoute};
+export {Router as adminRoutes};
