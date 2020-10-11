@@ -32,7 +32,7 @@ Listings Category.
 */
 Router.post('/listings/new', addListing);
 Router.get('/listings/:id',fetchSingleListing);
-Router.get('/listings', fetchAllListings);
+Router.post('/listings', fetchAllListings);
 Router.get('/listings/:id',updateListing);
 Router.delete('/listings/:id', deleteSingleListing);
 /* 
