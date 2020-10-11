@@ -26,7 +26,6 @@ app.use(session({
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })); //can change to false
 app.use(bodyParser.json());
-
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -56,7 +55,7 @@ mongoose.connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     })
     .then(() => console.log("database connected"))
     .catch(err => console.log("could not connect database", err));
@@ -67,6 +66,14 @@ app.use((req,res,next)=>{
     console.log('this is who is logged in ', req.session.userId)
     next();
 })
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
+
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 //server works --200 status
 app.get('/', (req, res) => {
