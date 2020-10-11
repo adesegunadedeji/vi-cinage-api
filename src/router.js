@@ -16,7 +16,7 @@ User Authentication.
 Router.post("/user/register",userRegistration );
 Router.post("/user/login",loginRegistration );
 Router.get("/user/logout",logOut );
-Router.get("/users/all",allUsers );
+Router.get("/user/all",allUsers );
 
 /* 
 Real Estate Agencies.
