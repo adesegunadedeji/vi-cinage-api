@@ -33,7 +33,7 @@ Listings Category.
 */
 Router.post("/listing/new", addListing);
 Router.get("/listing/:id",fetchSingleListing);
-Router.get("/listing/all", fetchAllListings);
+Router.get("/listing", fetchAllListings);
 Router.get("/listing/:id",updateListing);
 Router.delete("/listing/:id", deleteSingleListing);
 /* 
