@@ -14,35 +14,35 @@ import {fetchHomes, addHome,updateHomes,deleteHomes,fetchSingleHome} from './con
 /* 
 User Authentication.
  */
-Router.post('/users/register',userRegistration );
-Router.post('/users/login',loginRegistration );
-Router.get('/users/logout',logOut );
+Router.post("/users/register",userRegistration );
+Router.post("/users/login",loginRegistration );
+Router.get("/users/logout",logOut );
 /* 
 Real Estate Agencies.
  */
-Router.get('/estates/:id',fetchSingleEstate);
-Router.get('/estates/:id',updateSingleEstate);
-Router.delete('/estates/:id',deleteSingleEstate);
-Router.post('/estates/new', addEstateAgency);
-Router.get('/estates', fetchAllAgencies);
+Router.get("/estates/:id",fetchSingleEstate);
+Router.get("/estates/:id",updateSingleEstate);
+Router.delete("/estates/:id",deleteSingleEstate);
+Router.post("/estates/new", addEstateAgency);
+Router.get("/estates", fetchAllAgencies);
 
 
 /* 
 Listings Category.
 */
-Router.post('/listings/new', addListing);
-Router.get('/listings/:id',fetchSingleListing);
-Router.post('/listings', fetchAllListings);
-Router.get('/listings/:id',updateListing);
-Router.delete('/listings/:id', deleteSingleListing);
+Router.post("/listings/new", addListing);
+Router.get("/listings/:id",fetchSingleListing);
+Router.get("/listings", fetchAllListings);
+Router.get("/listings/:id",updateListing);
+Router.delete("/listings/:id", deleteSingleListing);
 /* 
 Homes.
  */
-Router.get('/homes', fetchHomes);
-Router.post('/homes/new', addHome);
-Router.put('/homes/:id', updateHomes);
-Router.delete('/homes/:id', deleteHomes);
-Router.get('/homes/:id', fetchSingleHome);
+Router.get("/homes", fetchHomes);
+Router.post("/homes/new", addHome);
+Router.put("/homes/:id", updateHomes);
+Router.delete("/homes/:id", deleteHomes);
+Router.get("/homes/:id", fetchSingleHome);
 
 //default 200 OK
 Router.get("health", (req, res) => {

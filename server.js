@@ -58,7 +58,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 
 app.use((req,res,next)=>{
-    console.log('this is who is logged in ', req.session.userId)
+    console.log('this is who is logged in ', req.body.username)
     next();
 })
 

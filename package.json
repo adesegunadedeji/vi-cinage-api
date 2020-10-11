@@ -12,7 +12,7 @@
     "url": "git+https://github.com/adesegunadedeji/vi-cinage.git"
   },
   "engines": {
-    "node": "12.18.3",
+    "node": "14.8.0",
     "npm": "6.14.7"
   },
   "author": "adetheDevGuy",
@@ -20,6 +20,10 @@
   "bugs": {
     "url": "https://github.com/adesegunadedeji/vi-cinage/issues"
   },
+  "keywords": [
+    "vicinage",
+    "heroku"
+  ],
   "homepage": "https://github.com/adesegunadedeji/vi-cinage#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
