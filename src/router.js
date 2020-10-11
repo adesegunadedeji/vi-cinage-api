@@ -5,7 +5,6 @@ const Router = express.Router();
 /* 
 Controller Imports 
 */
-
 import {userRegistration, loginRegistration, logOut,allUsers} from './controllers/userController.js'
 import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from './controllers/estateController.js';
 import {addListing, updateListing, fetchAllListings, deleteSingleListing, fetchSingleListing} from './controllers/listingsController.js';
@@ -14,37 +13,37 @@ import {fetchHomes, addHome,updateHomes,deleteHomes,fetchSingleHome} from './con
 /* 
 User Authentication.
  */
-Router.post("/users/register",userRegistration );
-Router.post("/users/login",loginRegistration );
-Router.get("/users/logout",logOut );
-Router.get("/users",allUsers );
+Router.post("/user/register",userRegistration );
+Router.post("/user/login",loginRegistration );
+Router.get("/user/logout",logOut );
+Router.get("/users/all",allUsers );
 
 /* 
 Real Estate Agencies.
  */
-Router.get("/estates/:id",fetchSingleEstate);
-Router.get("/estates/:id",updateSingleEstate);
-Router.delete("/estates/:id",deleteSingleEstate);
-Router.post("/estates/new", addEstateAgency);
-Router.get("/estates", fetchAllAgencies);
+Router.get("/agency/:id",fetchSingleEstate);
+Router.get("/agency/:id",updateSingleEstate);
+Router.delete("/agency/:id",deleteSingleEstate);
+Router.post("/agency/new", addEstateAgency);
+Router.get("/agency/all", fetchAllAgencies);
 
 
 /* 
 Listings Category.
 */
-Router.post("/listings/new", addListing);
-Router.get("/listings/:id",fetchSingleListing);
-Router.get("/listings", fetchAllListings);
-Router.get("/listings/:id",updateListing);
-Router.delete("/listings/:id", deleteSingleListing);
+Router.post("/listing/new", addListing);
+Router.get("/listing/:id",fetchSingleListing);
+Router.get("/listing/all", fetchAllListings);
+Router.get("/listing/:id",updateListing);
+Router.delete("/listing/:id", deleteSingleListing);
 /* 
 Homes.
  */
-Router.get("/homes", fetchHomes);
-Router.post("/homes/new", addHome);
-Router.put("/homes/:id", updateHomes);
-Router.delete("/homes/:id", deleteHomes);
-Router.get("/homes/:id", fetchSingleHome);
+Router.get("/home/all", fetchHomes);
+Router.post("/home/new", addHome);
+Router.put("/home/:id", updateHomes);
+Router.delete("/home/:id", deleteHomes);
+Router.get("/home/:id", fetchSingleHome);
 
 //default 200 OK
 Router.get("health", (req, res) => {

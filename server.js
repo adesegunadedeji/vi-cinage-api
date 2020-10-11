@@ -1,20 +1,22 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import cookieparser from 'cookie-parser';
 import session  from 'express-session';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import helmet from 'helmet';
 // import rfs from 'rotating-file-stream';
 // import path from 'path';
-import { Router as api} from './src/index.js'
+import { Router as indexRoute} from './src/index.js'
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieparser());
 app.use(cors({origin:"*"}))
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(helmet());
 app.set('trust proxy', 1) // trust first proxy
 //MiddleWare for User Login
@@ -38,38 +40,27 @@ app.all('*', function (req, res, next) {
   next();
 });
 
-// create a rotating write stream for logging requests daily
-// const __dirname = path.resolve();
-// const serverLogStream = rfs.createStream('server.log', {
-//     interval: '1d',
-//     path: path.join(__dirname, 'logs')
-// })
-// app.use(morgan("combined", { stream: serverLogStream }));
-const PORT = process.env.PORT;
-
+//Connect to Database
 mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true)
 mongoose.connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
         useUnifiedTopology: true,
     })
     .then(() => console.log("database connected"))
-    .catch(err => console.log("could not connect database", err));
-
+    .catch(err => console.log("could not connect to database", err));
 
 //server works --200 status
 app.get('/', (req, res) => {
   res.status(200).send('<p style="text-align: center; font-weight: 600">Welcome to VICINAGE API...</p>');
 })
 //API Routes
-app.use('/api/v1', api);
-
-
+app.use('/api/v1', indexRoute);
 app.on('error', (err) => {
   console.error(`Express server error ${err}`);
 });
 
+const PORT = process.env.PORT;
 app.listen(PORT, ()=>{
     console.log(`listening on  PORT ${PORT}`);
 })
