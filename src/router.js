@@ -1,10 +1,15 @@
+'use strict'
 import express from 'express';
 const Router = express.Router();
 
-import {userRegistration, loginRegistration, logOut} from './src/controllers/userController.js'
-import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from './src/controllers/estateController.js';
-import {addListing, updateListing, fetchAllListings, deleteSingleListing, fetchSingleListing} from './src/controllers/listingsController.js';
-import {fetchHomes, addHome,updateHomes,deleteHomes,fetchSingleHome} from './src/controllers/homeController.js';
+/* 
+Controller Imports 
+*/
+
+import {userRegistration, loginRegistration, logOut} from './controllers/userController.js'
+import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from './controllers/estateController.js';
+import {addListing, updateListing, fetchAllListings, deleteSingleListing, fetchSingleListing} from './controllers/listingsController.js';
+import {fetchHomes, addHome,updateHomes,deleteHomes,fetchSingleHome} from './controllers/homeController.js';
 
 /* 
 User Authentication.

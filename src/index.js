@@ -1,7 +1,7 @@
 'use strict';
 import express from 'express';
 const Router = express.Router();
-import {AdminRoute} from '../router.js'
+import {AdminRoute} from './router.js'
 
 Router.use('/admin', AdminRoute);
 
