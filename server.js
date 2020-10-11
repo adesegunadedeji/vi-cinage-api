@@ -12,14 +12,27 @@ import { Router as api} from './src/api/index.js'
 dotenv.config();
 
 const app = express();
+//server works --200 status
+app.get('/', (req, res) => {
+  res.status(200).send('<p style="text-align: center; font-weight: 600">Welcome to VICINAGE API...</p>');
+})
+app.use('/api', api);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieparser());
-app.use(cors({origin:"*"}))
+// app.use(cors({origin:"*"}))
 app.use(morgan('dev'));
 app.use(helmet());
 app.set('trust proxy', 1) // trust first proxy
 //MiddleWare for User Login
+//CORS allows request to come in from React
+// const corsOptions={
+//     credentials:true,
+//     origin:'http://localhost:3000',// Include Allowable Origin
+//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+// app.use(cors(corsOptions));
+
 app.use(session({
   secret: process.env.SECRET,
   resave:false,
@@ -34,11 +47,11 @@ app.use((req,res,next)=>{
 
 //MiddleWare
 // parse application/x-www-form-urlencoded
-app.all('*', function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  next();
-});
+// app.all('*', function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "*");
+//   next();
+// });
 
 //Connect to Database
 mongoose.Promise = global.Promise;
@@ -49,13 +62,6 @@ mongoose.connect(process.env.MONGO_URI, {
     })
     .then(() => console.log("database connected"))
     .catch(err => console.log("could not connect to database", err));
-
-//server works --200 status
-app.get('/', (req, res) => {
-  res.status(200).send('<p style="text-align: center; font-weight: 600">Welcome to VICINAGE API...</p>');
-})
-app.use("/api", api);
-
 app.on('error', (err) => {
   console.error(`Express server error ${err}`);
 });
@@ -66,10 +72,3 @@ app.listen(PORT, ()=>{
 })
 export { app as server };
 
-//CORS allows request to come in from React
-// const corsOptions={
-//     credentials:true,
-//     origin:'http://localhost:3000',// Include Allowable Origin
-//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
-// app.use(cors(corsOptions));
