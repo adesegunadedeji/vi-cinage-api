@@ -6,7 +6,7 @@ const Router = express.Router();
 Controller Imports 
 */
 
-import {userRegistration, loginRegistration, logOut} from './controllers/userController.js'
+import {userRegistration, loginRegistration, logOut,allUsers} from './controllers/userController.js'
 import {fetchSingleEstate,updateSingleEstate, deleteSingleEstate, addEstateAgency, fetchAllAgencies} from './controllers/estateController.js';
 import {addListing, updateListing, fetchAllListings, deleteSingleListing, fetchSingleListing} from './controllers/listingsController.js';
 import {fetchHomes, addHome,updateHomes,deleteHomes,fetchSingleHome} from './controllers/homeController.js';
@@ -17,6 +17,8 @@ User Authentication.
 Router.post("/users/register",userRegistration );
 Router.post("/users/login",loginRegistration );
 Router.get("/users/logout",logOut );
+Router.get("/users",allUsers );
+
 /* 
 Real Estate Agencies.
  */

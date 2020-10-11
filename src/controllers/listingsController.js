@@ -91,7 +91,7 @@ export const fetchSingleListing =  async(req, res) => {
     
     try{
    const listings_id = req.params.id;
-    const singleListing  = await Listing.findOne({ _id: listings_id});
+    const singleListing  = await Listing.findById({ _id: listings_id});
     console.log(singleListing, " SINGlE LISTING")
     if(singleListing){
         return res.status(200).send({

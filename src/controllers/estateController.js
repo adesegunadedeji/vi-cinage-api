@@ -54,7 +54,7 @@ export const addEstateAgency = async(req,res)=>{
     
     try{
     const estate_id = req.params.id;
-    const singleEstateAgent  = await RealEstate.findOne({ _id: estate_id});
+    const singleEstateAgent  = await RealEstate.findById({ _id: estate_id});
         
     if(!singleEstateAgent){
         return res.send({

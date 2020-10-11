@@ -146,7 +146,7 @@ export const fetchSingleHome =  async(req, res) => {
     
     try{
     const home_id = req.params.id;
-    const singleHome  = await Home.findOne({ _id: home_id});
+    const singleHome  = await Home.findById({ _id: home_id});
         
     if(!singleHome){
         return res.send({

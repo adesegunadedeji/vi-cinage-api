@@ -46,8 +46,6 @@ export const loginRegistration =  async(req,res)=>{
         //If user is found, Use bcrypt to swee if their password is valid
             if(foundUser){
                 const passwordIsValid = bcrypt.compareSync(password, foundUser.password)
-                console.log(foundUser.password)
-
                 if(passwordIsValid){ //Set Session if Password is Valid
                     req.session.userId = foundUser._id
                     req.session.username = foundUser.username;
